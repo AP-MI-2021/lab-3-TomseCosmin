@@ -1,3 +1,37 @@
+import math
+def verificare_perfect_square(x):
+    y = math.sqrt(x)
+    int(y)
+    y=y//1
+    
+    if y*y==x:
+        return True
+    return False
+def test_vertificare_perfect_square():
+    '''
+    test verificare_perfect_square
+    '''
+    assert verificare_perfect_square(16) == True
+    assert verificare_perfect_square(17) == False
+def get_longest_all_perfect_squares(lst: list[int]) -> list[int]:
+
+    '''
+    numar maxim patrate perfecte consecutive
+    '''
+    mx = 0
+    nr = 0
+    for x in lst:
+        if verificare_perfect_square(x):
+            nr = nr + 1
+            if nr > mx:
+                mx = nr
+        else:
+            nr = 0
+    return mx
+
+def afiseaza_get_longest_all_perfect_square(listat):
+    print(get_longest_all_perfect_squares(listat))
+
 def is_prime(n):
     '''
     returneaza true daca nr e prim si false in caz contrar
@@ -119,7 +153,8 @@ def main():
     print("1. introducere lista")
     print("2. afiseaza lungimea celei mai lungi subsecvente cu proprietatea ca toate nr sunt prime")
     print("3. afiseaza lungimea celeimai mai lungi subsecvente cu proprietatea ca toate nr au cifre prime")
-    print("4. iesire")
+    print("4. afiseaza lungimea celeimai mai lungi subsecvente cu proprietatea ca toate nr sunt patrate perfecte")
+    print("5. iesire")
     while True:
         optiune = int(input("dati optiune:"))
         if optiune == 1:
@@ -134,6 +169,8 @@ def main():
         elif optiune == 3:
             afiseaza_get_longes_prime_digits(listax)
         elif optiune == 4:
+            afiseaza_get_longest_all_perfect_square(listax)
+        elif optiune == 5:
             print("ati iesit din meniu")
             return
         else:
@@ -142,3 +179,4 @@ def main():
 
 
 main()
+
