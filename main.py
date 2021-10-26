@@ -1,36 +1,45 @@
 import math
+
+
 def verificare_perfect_square(x):
     y = math.sqrt(x)
     int(y)
-    y=y//1
-    
-    if y*y==x:
+    y = y // 1
+
+    if y * y == x:
         return True
     return False
+
+
 def test_vertificare_perfect_square():
     '''
     test verificare_perfect_square
     '''
     assert verificare_perfect_square(16) == True
     assert verificare_perfect_square(17) == False
-def get_longest_all_perfect_squares(lst: list[int]) -> list[int]:
 
+def verificare_ppt_in_lst(l):
+    for x in l:
+        if verificare_perfect_square(x) is False:
+            return False
+    return True
+
+
+def get_longest_all_perfect_squares(l: list[int]) -> list[int]:
     '''
     numar maxim patrate perfecte consecutive
     '''
-    mx = 0
-    nr = 0
-    for x in lst:
-        if verificare_perfect_square(x):
-            nr = nr + 1
-            if nr > mx:
-                mx = nr
-        else:
-            nr = 0
-    return mx
+
+    subsecventaMax = []
+    for i in range(len(l)):
+        for j in range(i, len(l)):
+            if verificare_ppt_in_lst(l[i:j+1]) and len(l[i:j+1]) > len(subsecventaMax):
+                subsecventaMax = l[i:j+1]
+    return subsecventaMax
 
 def afiseaza_get_longest_all_perfect_square(listat):
     print(get_longest_all_perfect_squares(listat))
+
 
 def is_prime(n):
     '''
@@ -56,21 +65,24 @@ def test_is_prime():
 
 test_is_prime()
 
+def test_is_prime_lst(l):
+    for x in l:
+        if is_prime(x) is False:
+            return False
+    return True
 
-def get_longest_all_primes(lst):
+
+def get_longest_all_primes(l):
     '''
     verifica cate numere sunt prime.
     '''
-    mx = 0
-    nr = 0
-    for x in lst:
-        if is_prime(x):
-            nr = nr + 1
-            if nr > mx:
-                mx = nr
-        else:
-            nr = 0
-    return mx
+
+    subsecventaMax = []
+    for i in range(len(l)):
+        for j in range(i, len(l)):
+            if test_is_prime_lst(l[i:j + 1]) and len(l[i:j + 1]) > len(subsecventaMax):
+                subsecventaMax = l[i:j + 1]
+    return subsecventaMax
 
 
 def test_get_longest_all_primes():
@@ -80,9 +92,9 @@ def test_get_longest_all_primes():
     lista1 = [12, 7, 11, 4, 7, 7, 7, 8]
     lista2 = [12, 7, 11, 4, 7, 7, 7, 11, 8]
     lista3 = [12, 7, 11, 4, 7, 7, 6, 8]
-    assert get_longest_all_primes(lista1) == 3
-    assert get_longest_all_primes(lista2) == 4
-    assert get_longest_all_primes(lista3) == 2
+    assert get_longest_all_primes(lista1) == [7,7,7]
+    assert get_longest_all_primes(lista2) == [7,7,7,11]
+    assert get_longest_all_primes(lista3) == [7,11]
 
 
 test_get_longest_all_primes()
@@ -108,6 +120,7 @@ def all_prime_digits(numar2):
     return True
 
 
+
 def test_all_prime_digits():
     '''verifica functia all_prime_digits
     '''
@@ -118,17 +131,20 @@ def test_all_prime_digits():
 test_all_prime_digits()
 
 
-def get_longest_prime_digits(lst: list[int]) -> list[int]:
-    mx = 0
-    nr = 0
-    for x in lst:
-        if all_prime_digits(x):
-            nr = nr + 1
-            if nr > mx:
-                mx = nr
-        else:
-            nr = 0
-    return mx
+def all_prime_digits_lst(l):
+    for x in l:
+        if all_prime_digits(x) is False:
+            return False
+    return True
+
+
+def get_longest_prime_digits(l: list[int]) -> list[int]:
+    subsecventaMax = []
+    for i in range(len(l)):
+        for j in range(i, len(l)):
+            if all_prime_digits_lst(l[i:j + 1]) and len(l[i:j + 1]) > len(subsecventaMax):
+                subsecventaMax = l[i:j + 1]
+    return subsecventaMax
 
 
 def test_get_longest_primes_digits():
@@ -148,12 +164,11 @@ def afiseaza_get_longes_prime_digits(listaz):
 
 
 def main():
-
     listax = []
     print("1. introducere lista")
-    print("2. afiseaza lungimea celei mai lungi subsecvente cu proprietatea ca toate nr sunt prime")
-    print("3. afiseaza lungimea celeimai mai lungi subsecvente cu proprietatea ca toate nr au cifre prime")
-    print("4. afiseaza lungimea celeimai mai lungi subsecvente cu proprietatea ca toate nr sunt patrate perfecte")
+    print("2. afiseaza cea mai lunga secventa  cu proprietatea ca toate nr sunt prime")
+    print("3. afiseaza cea mai lunga secventa  cu proprietatea ca toate nr au cifre prime")
+    print("4. afiseaza cea mai lunga secventa  cu proprietatea ca toate nr sunt patrate perfecte")
     print("5. iesire")
     while True:
         optiune = int(input("dati optiune:"))
@@ -179,4 +194,3 @@ def main():
 
 
 main()
-
